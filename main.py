@@ -18,16 +18,17 @@ except:
 
 cmdStr = str(jsonIn["cmd"])
 
-jsonOutDic = dict()
+jsonOut = {}
 
 board = [
-		 [0, 0, 0, 0, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0],
-		 [0, 0, 0, 0, 0, 0, 0]
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0],
+		 [0, 0, 0, 0, 0, 0, 0, 0]
 	    ]
 
 
@@ -41,12 +42,12 @@ if cmdStr == "init":
 
 		if orientation == 0:
 			#h
-			x = random.randint(0, 6)
-			y = random.randint(0, 6 - generating)
+			x = random.randint(0, 7)
+			y = random.randint(0, 7 - generating)
 		else:
 			#v
-			x = random.randint(0, 6 - generating)
-			y = random.randint(0, 6)
+			x = random.randint(0, 7 - generating)
+			y = random.randint(0, 7)
 
 		toFill = generating
 		if orientation == 0:
@@ -72,11 +73,12 @@ if cmdStr == "init":
 			for c in range(x, x + generating):
 				board[c][y] = 1
 		orientationStr = "horizontal" if (orientation == 0) else "vertical"
-		jsonOutDic[str(generating)] = dict([("pos", str(x) + str(y)), ("orientation", orientationStr)])
+		point = "%d%d" % (y, x)
+		jsonOut[generating] = {"point": point, "orientation": orientationStr}
 		generating += 1
 
 elif cmdStr == "move":
-	x = random.randint(0, 6)
-	y = random.randint(0, 6)
-	jsonOutDic["move"] = str(x) + str(y)
-print json.dumps(jsonOutDic)
+	x = random.randint(0, 7)
+	y = random.randint(0, 7)
+	jsonOut = {"move": "%d%d" % (x, y)}
+print json.dumps(jsonOut)
