@@ -78,7 +78,17 @@ if cmdStr == "init":
 		generating += 1
 
 elif cmdStr == "move":
-	x = random.randint(0, 7)
-	y = random.randint(0, 7)
+	hit = jsonIn["hit"]
+	missed = jsonIn["missed"]
+	validMove = False
+	x = 0
+	y = 0
+	while not validMove:
+		x = random.randint(0, 7)
+		y = random.randint(0, 7)
+		move = "%d%d" % (x, y)
+		validMove = not(move in hit or move in missed)
+
+
 	jsonOut = {"move": "%d%d" % (x, y)}
 print json.dumps(jsonOut)
